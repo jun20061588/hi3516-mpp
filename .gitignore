@@ -1,0 +1,4 @@
+*.o
+himpp
+libhimpp.a
+libhimpp.so

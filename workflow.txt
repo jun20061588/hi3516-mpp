@@ -1,0 +1,27 @@
+main:
+    s32MainFd = tcp_listen(SERVER_RTSP_PORT_DEFAULT);
+    ScheduleInit
+        pthread_create schedule_do
+            wait connections
+    pthread_create SAMPLE_VENC_H265_H264, NULL
+        init & check sensor etc
+        SAMPLE_COMM_SYS_GetPicSize
+        SAMPLE_COMM_VI_GetSensorInfo
+        SAMPLE_VENC_ModifyResolution
+        SAMPLE_VENC_VI_Init
+        SAMPLE_VENC_VPSS_Init
+        SAMPLE_COMM_VI_Bind_VPSS
+
+        SAMPLE_COMM_VENC_Start
+            SAMPLE_COMM_VENC_Creat
+            HI_MPI_VENC_StartRecvFrame
+        SAMPLE_COMM_VPSS_Bind_VENC
+
+        SAMPLE_COMM_VENC_StartGetStream
+            pthread_create SAMPLE_COMM_VENC_GetVencStreamProc
+                HI_MPI_VENC_GetStream(i, &stStream, HI_TRUE);
+                HisiPutH264DataToBuffer stStream
+                SAMPLE_COMM_VENC_SaveStream
+        SAMPLE_COMM_VENC_StopGetStream
+    EventLoop(s32MainFd);
+        ScheduleConnections
