@@ -39,12 +39,17 @@ MODULE=himpp
 #SOURCES = $(wildcard *.c *.cpp)
 #OBJECTS:= $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
 
-OBJECTS:=sample_comm_isp.o \
+OBJECTS:=audio_dl_adp.o \
+		audio_aac_adp.o \
+		sample_comm_audio.o \
+		sample_comm_isp.o \
 		sample_comm_sys.o \
 		sample_comm_venc.o \
 		sample_comm_vi.o \
 		sample_comm_vo.o \
 		sample_comm_vpss.o \
+		sample_audio.o \
+		sample_aenc.o \
 		sample_venc.o
 		
 %.o: %.c
@@ -58,17 +63,20 @@ static: $(OBJECTS)
 dynamic: $(OBJECTS)
 	$(CC) -shared -fPIC -o lib$(MODULE).so $(OBJECTS)
 
-	$(CC) -o $(MODULE)_g main.c lib$(MODULE).so  $(INCLUDES) $(LIBS) 
+	$(CC) -o $(MODULE)_g main.c lib$(MODULE).so  $(INCLUDES) $(LIBS)
 
 all: static install
 
+
+LIVEMEDIA_DIR=../live555/liveMedia
+
 install:
-	-rm -rf /workspace/hisi/hi3516dv300/3rd/live555/liveMedia/$(MODULE)/include/*
-	-rm -rf /workspace/hisi/hi3516dv300/3rd/live555/liveMedia/$(MODULE)/lib/*
-	mkdir -p /workspace/hisi/hi3516dv300/3rd/live555/liveMedia/$(MODULE)/include/
-	mkdir -p /workspace/hisi/hi3516dv300/3rd/live555/liveMedia/$(MODULE)/lib/
-	cp -fr include/* sample_comm.h /workspace/hisi/hi3516dv300/3rd/live555/liveMedia/$(MODULE)/include/
-	cp -fr lib/lib* lib$(MODULE).a /workspace/hisi/hi3516dv300/3rd/live555/liveMedia/$(MODULE)/lib/
+	-rm -rf $(LIVEMEDIA_DIR)/$(MODULE)/include/*
+	-rm -rf $(LIVEMEDIA_DIR)/$(MODULE)/lib/*
+	mkdir -p $(LIVEMEDIA_DIR)/$(MODULE)/include/
+	mkdir -p $(LIVEMEDIA_DIR)/$(MODULE)/lib/
+	cp -fr include/* sample_comm.h $(LIVEMEDIA_DIR)/$(MODULE)/include/
+	cp -fr lib/lib* lib$(MODULE).a $(LIVEMEDIA_DIR)/$(MODULE)/lib/
 
 clean:
 	rm -rfv *.o lib$(MODULE).a lib$(MODULE).so $(MODULE)

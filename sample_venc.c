@@ -237,7 +237,7 @@ HI_S32 SAMPLE_VENC_PeekStream(VENC_CHN vencChn, VENC_STREAM_S *pstStream) {
     HI_S32              s32Ret;
     VENC_CHN_STATUS_S   stStat;
     fd_set              readFds = {0};
-    struct timeval      timeVal = {2, 0};
+    struct timeval      timeVal = {1, 0};
 
     int vencFd = HI_MPI_VENC_GetFd(vencChn);
     if (vencFd < 0) {

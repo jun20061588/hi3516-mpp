@@ -608,6 +608,19 @@ HI_VOID SAMPLE_VENC_DeInit();
 
 HI_S32 SAMPLE_VENC_PeekStream(VENC_CHN vencChn, VENC_STREAM_S *pstStream);
 HI_S32 SAMPLE_VENC_ReleaseStream(VENC_CHN vencChn, VENC_STREAM_S *pstStream);
+
+HI_S32 SAMPLE_VENC_Init(PIC_SIZE_E enSize[], HI_U32 uChnNum);
+HI_VOID SAMPLE_VENC_DeInit();
+
+HI_S32 SAMPLE_VENC_PeekStream(VENC_CHN vencChn, VENC_STREAM_S *pstStream);
+HI_S32 SAMPLE_VENC_ReleaseStream(VENC_CHN vencChn, VENC_STREAM_S *pstStream);
+
+HI_S32 SAMPLE_AENC_Init(AUDIO_SAMPLE_RATE_E sampleRate, AENC_CHN numChannels);
+HI_VOID SAMPLE_AENC_DeInit();
+
+HI_S32 SAMPLE_AENC_PeekStream(AUDIO_STREAM_S *pstAudioFrame);
+HI_S32 SAMPLE_AENC_ReleaseStream(AUDIO_STREAM_S *pstAudioFrame);
+
 #ifdef __cplusplus
 #if __cplusplus
 }
